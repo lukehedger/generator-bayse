@@ -12,7 +12,7 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
-        this.npmInstall();
+        // this.npmInstall();
       }
     });
   },
@@ -23,15 +23,24 @@ var BayseGenerator = yeoman.generators.Base.extend({
     // Have Yeoman greet the user.
     this.log(yosay('Welcome to the marvelous Bayse generator!'));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var prompts = [
+      {
+        type: 'confirm',
+        name: 'coffee',
+        message: 'Do you need CoffeeScript?',
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'myth',
+        message: 'Do you need Myth?',
+        default: true
+      }
+    ];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
+      this.coffee = props.coffee;
+      this.myth = props.myth;
 
       done();
     }.bind(this));
@@ -39,22 +48,40 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
   app: function () {
 
-    this.directory('coffee','coffee');
-    this.directory('css','css');
-    this.directory('js','js');
-    this.directory('img','img');
-    this.directory('myth','myth');
-    this.directory('vendor','vendor');
-    this.copy('index.html', 'index.html');
+    // TODO - add template js & css files
+
+    if(this.coffee){
+      this.directory('_coffee','coffee');
+    }
+    else{
+      this.directory('_js','js');
+    }
+    
+    if(this.myth){
+      this.directory('_myth','myth');      
+    }
+    else{
+      this.directory('_css','css');
+    }
+
+    this.directory('_img','img');
+    this.directory('_vendor','vendor');
+    this.copy('_index.html', 'index.html');
 
   },
 
   projectfiles: function () {
+    
+    // TODO - add prompt for project name, use in index, readme and package.json
+    // see https://github.com/LeanMeanFightingMachine/StartingBlocks/blob/master/app/templates/_README.md
 
     this.copy('_package.json', 'package.json');
-    this.copy('gulpfile.js', 'gulpfile.js');
-    this.copy('README.md', 'README.md');
+    this.copy('_README.md', 'README.md');
     // this.copy('editorconfig', '.editorconfig');
+
+    if(this.coffee && this.myth){
+      this.copy('_gulpfile.js', 'gulpfile.js');
+    }
 
   }
 });

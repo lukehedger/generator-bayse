@@ -12,7 +12,7 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
-        this.npmInstall();
+        // this.npmInstall();
       }
     });
   },
@@ -21,13 +21,28 @@ var BayseGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to the marvelous Bayse generator!'));
+    this.log(yosay('Welcome to the marvellous Bayse generator!'));
+    this.log(chalk.magenta('Out of the box I include an HTML5 boilerplate, jQuery and RequireJS to build your app.'));
 
     var prompts = [
       {
+        type: 'checkbox',
+        name: 'features',
+        message: 'What else would you like to include?',
+        choices: [{
+          name: 'CoffeeScript',
+          value: 'coffee',
+          checked: false
+        }, {
+          name: 'Myth',
+          value: 'myth',
+          checked: false
+        }]
+      },
+      {
         type: 'input',
         name: 'name',
-        message: 'What\'s the name of your project?',
+        message: 'Cool. So what\'s the name of your project?',
         validate: function(input) { return (input.length ? true : "This field is required."); }
       },
       {
@@ -35,25 +50,18 @@ var BayseGenerator = yeoman.generators.Base.extend({
         name: 'description',
         message: 'And what will it do?'
       },
-      {
-        type: 'confirm',
-        name: 'coffee',
-        message: 'Do you need CoffeeScript?',
-        default: true
-      },
-      {
-        type: 'confirm',
-        name: 'myth',
-        message: 'Do you need Myth?',
-        default: true
-      }
     ];
 
     this.prompt(prompts, function (props) {
-      this.coffee = props.coffee;
-      this.myth = props.myth;
       this.name = props.name;
       this.description = props.description;
+
+      var features = props.features,
+      hasFeature = function (feat) {
+        return features.indexOf(feat) !== -1;
+      }
+      this.coffee = hasFeature('coffee');
+      this.myth = hasFeature('myth');
 
       done();
     }.bind(this));
@@ -77,7 +85,7 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     this.directory('_img','img');
     this.directory('_vendor','vendor');
-    this.copy('_index.html', 'index.html');
+    this.template('_index.html', 'index.html');
 
   },
 

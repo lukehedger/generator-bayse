@@ -12,7 +12,7 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
-        // this.npmInstall();
+        this.npmInstall();
       }
     });
   },
@@ -31,6 +31,11 @@ var BayseGenerator = yeoman.generators.Base.extend({
         validate: function(input) { return (input.length ? true : "This field is required."); }
       },
       {
+        type: 'input',
+        name: 'description',
+        message: 'And what will it do?'
+      },
+      {
         type: 'confirm',
         name: 'coffee',
         message: 'Do you need CoffeeScript?',
@@ -47,6 +52,8 @@ var BayseGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.coffee = props.coffee;
       this.myth = props.myth;
+      this.name = props.name;
+      this.description = props.description;
 
       done();
     }.bind(this));
@@ -75,17 +82,13 @@ var BayseGenerator = yeoman.generators.Base.extend({
   },
 
   projectfiles: function () {
-    
-    // TODO - add prompt for project name, use in index, readme and package.json
-    // see https://github.com/LeanMeanFightingMachine/StartingBlocks/blob/master/app/templates/_README.md
-    // this.template("_README.md", "README.md"); <%= name %>
 
     this.copy('_package.json', 'package.json');
-    this.copy('_README.md', 'README.md');
+    this.template('_README.md', 'README.md');
     // this.copy('editorconfig', '.editorconfig');
 
-    if(this.coffee && this.myth){
-      this.copy('_gulpfile.js', 'gulpfile.js');
+    if(this.coffee || this.myth){
+      this.template('_gulpfile.js', 'gulpfile.js');
     }
 
   }

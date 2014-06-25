@@ -25,6 +25,12 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     var prompts = [
       {
+        type: 'input',
+        name: 'name',
+        message: 'What\'s the name of your project?',
+        validate: function(input) { return (input.length ? true : "This field is required."); }
+      },
+      {
         type: 'confirm',
         name: 'coffee',
         message: 'Do you need CoffeeScript?',
@@ -47,8 +53,6 @@ var BayseGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
-
-    // TODO - add template js & css files
 
     if(this.coffee){
       this.directory('_coffee','coffee');
@@ -74,6 +78,7 @@ var BayseGenerator = yeoman.generators.Base.extend({
     
     // TODO - add prompt for project name, use in index, readme and package.json
     // see https://github.com/LeanMeanFightingMachine/StartingBlocks/blob/master/app/templates/_README.md
+    // this.template("_README.md", "README.md"); <%= name %>
 
     this.copy('_package.json', 'package.json');
     this.copy('_README.md', 'README.md');

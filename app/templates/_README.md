@@ -4,7 +4,6 @@
 
 - **CoffeeScript** - language that compiles to JavaScript [http://coffeescript.org/](http://coffeescript.org/)
 - **Myth** - CSS preprocessor [http://www.myth.io/](http://www.myth.io/)
-- **RactiveJS** - template-driven UI library [http://www.ractivejs.org/](http://www.ractivejs.org/)
 - **RequireJS** - JavaScript file and module loader [http://requirejs.org/](http://requirejs.org/)
 - **GulpJS** - JavaScript task runner [http://gulpjs.com/](http://gulpjs.com/)
 
@@ -28,18 +27,9 @@
     - jQuery
     - add other vendor files here
 
-## Installation
-
-You can create a new Bayse project with VoloJS [http://volojs.org/](http://volojs.org/)
-
-```
-npm install -g volo
-volo create bayse-project lukehedger/bayse
-```
-
 ## Getting started
 
-If you choose to use Gulp to compile the CoffeeScript and Myth files then run the following commands in the root of your project to get started:
+To use Gulp to compile the CoffeeScript and Myth files, run the following commands in the root of your project:
 
 ### Install Gulp
 
@@ -60,11 +50,3 @@ If you choose to use Gulp to compile the CoffeeScript and Myth files then run th
 ### Stop watching
 
 `ctrl + c`
-
-## TODO
-
-- [ ] Yeoman generator
-- [ ] Ractive templating
-- [ ] editorconfig file
-- [ ] browserify ([here](http://viget.com/extend/gulp-browserify-starter-faq) and [here](http://browserify.org/))
-- [ ] moutjs ([here](http://moutjs.com/) - use with browserify)

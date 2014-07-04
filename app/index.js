@@ -93,7 +93,6 @@ var BayseGenerator = yeoman.generators.Base.extend({
 
     this.copy('_package.json', 'package.json');
     this.template('_README.md', 'README.md');
-    // this.copy('editorconfig', '.editorconfig');
 
     if(this.coffee || this.myth){
       this.template('_gulpfile.js', 'gulpfile.js');

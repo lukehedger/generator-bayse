@@ -2,6 +2,7 @@
 
 > [Yeoman](http://yeoman.io) generator
 
+**Deprecated: this generator is no longer maintained. Use the [Slush generator](https://github.com/lukehedger/slush-bayse) instead**
 
 ## Getting Started
 
